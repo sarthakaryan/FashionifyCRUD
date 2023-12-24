@@ -1,0 +1,75 @@
+DROP DATABASE IF EXISTS fashionify;
+CREATE DATABASE fashionify;
+USE fashionify;
+
+-- User Table
+CREATE TABLE User (
+    UserID INT PRIMARY KEY,
+    Username VARCHAR(255),
+    Password VARCHAR(255),
+    Email VARCHAR(255),
+    Role VARCHAR(50)
+);
+
+-- Category Table
+CREATE TABLE Category (
+    CategoryID INT PRIMARY KEY,
+    Name VARCHAR(255),
+    Description TEXT
+);
+
+-- Product Table
+CREATE TABLE Product (
+    ProductID INT PRIMARY KEY,
+    Name VARCHAR(255),
+    Price DECIMAL(10, 2),
+    Description TEXT,
+    StockQuantity INT,
+    CategoryID INT,
+    Brand VARCHAR(100), -- Added for brand information
+    Size VARCHAR(20),   -- Added for clothing sizes
+    Color VARCHAR(50),  -- Added for color options
+    FOREIGN KEY (CategoryID) REFERENCES Category(CategoryID)
+);
+
+
+-- Customer_Product Table
+CREATE TABLE Customer_Product (
+    CustomerProductID INT PRIMARY KEY,
+    UserID INT,
+    ProductID INT,
+    FOREIGN KEY (UserID) REFERENCES User(UserID),
+    FOREIGN KEY (ProductID) REFERENCES Product(ProductID)
+);
+
+-- Cart Table
+CREATE TABLE Cart (
+    CartID INT PRIMARY KEY,
+    UserID INT,
+    ProductID INT,
+    Quantity INT,
+    Timestamp TIMESTAMP,
+    FOREIGN KEY (UserID) REFERENCES User(UserID),
+    FOREIGN KEY (ProductID) REFERENCES Product(ProductID)
+);
+
+-- Order Table
+CREATE TABLE Order (
+    OrderID INT PRIMARY KEY,
+    UserID INT,
+    TotalAmount DECIMAL(10, 2),
+    OrderDate DATE,
+    Status VARCHAR(50),
+    ShippingAddress VARCHAR(255), -- Added for shipping address
+    FOREIGN KEY (UserID) REFERENCES User(UserID)
+);
+
+-- User_Uploads Table
+CREATE TABLE User_Uploads (
+    UploadID INT PRIMARY KEY,
+    UserID INT,
+    ProfileImageFilename VARCHAR(255),
+    ProfileImageFileType VARCHAR(50),
+    UploadDate TIMESTAMP,
+    FOREIGN KEY (UserID) REFERENCES User(UserID)
+);

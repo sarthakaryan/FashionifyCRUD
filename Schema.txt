@@ -1,0 +1,49 @@
+User:
+- UserID (Primary Key)
+- Username
+- Password
+- Email
+- Role (e.g., admin, customer)
+
+Customer_Product:
+- CustomerProductID (Primary Key)
+- UserID (Foreign Key referencing User.UserID)
+- ProductID (Foreign Key referencing Product.ProductID)
+
+Cart:
+- CartID (Primary Key)
+- UserID (Foreign Key referencing User.UserID)
+- ProductID (Foreign Key referencing Product.ProductID)
+- Quantity
+- Timestamp
+
+Order:
+- OrderID (Primary Key)
+- UserID (Foreign Key referencing User.UserID)
+- TotalAmount
+- OrderDate
+- Status (e.g., pending, shipped, delivered)
+- ShippingAddress
+
+Product:
+- ProductID (Primary Key)
+- Name
+- Price
+- Description
+- StockQuantity
+- CategoryID (Foreign Key referencing Category.CategoryID)
+- Brand
+- Size
+- Color
+
+Category:
+- CategoryID (Primary Key)
+- Name
+- Description
+
+User_Uploads:
+- UploadID (Primary Key)
+- UserID (Foreign Key referencing User.UserID)
+- ProfileImageFilename
+- ProfileImageFileType
+- UploadDate
